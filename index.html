@@ -155,29 +155,29 @@
             
             rechnung = (week + counter) % 3;
             // Saugen
-            if(rechnung == 0){
+            if(rechnung == 1){
                 document.getElementById('saugen').innerHTML = "Artem";
-            } else if(rechnung == 1) {
+            } else if(rechnung == 2) {
                 document.getElementById('saugen').innerHTML = "Maxim";
-            } else if(rechnung == 2){
+            } else if(rechnung == 0){
                 document.getElementById('saugen').innerHTML = "Tim";
             }
 
             // Bad
-            if(rechnung == 1){
+            if(rechnung == 2){
                 document.getElementById('bad').innerHTML = "Artem";
-            } else if(rechnung == 2) {
+            } else if(rechnung == 0) {
                 document.getElementById('bad').innerHTML = "Maxim";
-            } else if(rechnung == 0){
+            } else if(rechnung == 1){
                 document.getElementById('bad').innerHTML = "Tim";
             }
 
             // Treppe
-            if(rechnung == 2){
+            if(rechnung == 0){
                 document.getElementById('treppe').innerHTML = "Artem";
-            } else if(rechnung == 0) {
+            } else if(rechnung == 1) {
                 document.getElementById('treppe').innerHTML = "Maxim";
-            } else if(rechnung == 1){
+            } else if(rechnung == 2){
                 document.getElementById('treppe').innerHTML = "Tim";
             }
         }
