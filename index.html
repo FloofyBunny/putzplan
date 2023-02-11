@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Putzplan</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body, main {
+            margin: 0;
+            background-color: #f2f2f2;
+            color: white;
+        }
+
+        h1 {
+            text-align: center;
+            background-color: #2b6777;
+            margin: 0;
+            padding: 30px;
+        }
+
+        main {
+            font-size: 1.3em;
+            color: black;
+            background-color: #c8d8e4;
+            max-width: 900px;
+            width: 100%;
+            margin: auto;
+            padding: 30px;
+        }
+
+        p {
+            margin: 0;
+            padding: 20px;
+            padding-bottom: 0;
+            text-align: center;
+        }
+
+        .container {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+        }
+
+        #div-bad, #div-treppe, #div-saugen {
+            display: inline-block;
+            text-align: center;
+            padding: 20px;
+            
+        }
+        
+        #btns {
+            justify-content: center;
+            flex-wrap: nowrap;
+        }
+
+        button {
+            font-size: 1em;
+            margin: 0 1px;
+            margin-top: 40px;
+            padding: 15px 20px;
+        }
+
+        #current {
+            text-align: center;
+            margin-bottom: 0;
+        }
+
+        h2 {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Putzplan</h1>
+    <main>
+        <p>Diese Woche ist die <span id="week"></span>. Woche im Plan</p>
+
+        <div class="container" id="btns"></container>
+            <button type="button" onclick="plan(-1)">
+                &lt;&lt;
+            </button>
+            <button type="button" onclick="plan(0)">
+                Neu Laden
+            </button>
+            <button type="button" onclick="plan(1)">
+                &gt;&gt;
+            </button>
+        </div>
+
+        <p id="current">Angezeigte Woche: <span id="current-week">error</span></p>
+
+        <div class="container">
+            <div id="div-saugen">
+                <h2>Saugen</h2>
+                <p id="saugen">name</p>
+            </div>
+            <div id="div-bad">
+                <h2>Bad</h2>
+                <p id="bad">name</p>
+            </div>
+            <div id="div-treppe">
+                <h2>Treppe</h3>
+                <p id="treppe">name</p>
+            </div>
+        </div>
+    </main>
+    <script>
+        // counter für die betrachtete Woche im Putzplan
+        counter = 0;
+
+        // Seit welchem Jahr der Plan im betrieb ist
+        year = new Date("2023");
+
+        // aktuelle Zeit
+        c = new Date("2024");
+
+        // aktuelle Woche seit Jahresanfang 2023
+        c.setFullYear(c.getFullYear() - year.getFullYear() + 1970);
+        week = c.getTime() / 604800000;
+        week = Math.floor(week);
+
+        // Kalenderwoche vom Jahr 2023 in der wir angefangen haben mit dem plan
+        anfang = 5;
+
+        //aktuelle Woche im Plan
+        aktuell = week - anfang + 1;
+        document.getElementById('week').innerHTML = aktuell;
+
+        function plan(input){
+
+            // berechnung des Inputs der buttons
+            if(input == -1) {
+                if(counter >= (2-aktuell)){
+                    counter += input;
+                }
+            } else {
+                counter += input;
+            }
+
+            // angezeigte Woche Anzeige
+            angezeigt = aktuell + counter;
+            if(angezeigt == aktuell){
+                document.getElementById('current-week').innerHTML = "jetzt"
+            } else {
+                document.getElementById('current-week').innerHTML = angezeigt
+            }
+            
+
+            
+            rechnung = (week + counter) % 3;
+            // Saugen
+            if(rechnung == 0){
+                document.getElementById('saugen').innerHTML = "Artem";
+            } else if(rechnung == 1) {
+                document.getElementById('saugen').innerHTML = "Maxim";
+            } else if(rechnung == 2){
+                document.getElementById('saugen').innerHTML = "Tim";
+            }
+
+            // Bad
+            if(rechnung == 1){
+                document.getElementById('bad').innerHTML = "Artem";
+            } else if(rechnung == 2) {
+                document.getElementById('bad').innerHTML = "Maxim";
+            } else if(rechnung == 0){
+                document.getElementById('bad').innerHTML = "Tim";
+            }
+
+            // Treppe
+            if(rechnung == 2){
+                document.getElementById('treppe').innerHTML = "Artem";
+            } else if(rechnung == 0) {
+                document.getElementById('treppe').innerHTML = "Maxim";
+            } else if(rechnung == 1){
+                document.getElementById('treppe').innerHTML = "Tim";
+            }
+        }
+
+        //ausführen beim laden der Website
+        plan(0);
+    </script>
+</body>
+</html>
