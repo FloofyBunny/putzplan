@@ -120,12 +120,15 @@
 
         // aktuelle Zeit
         c = new Date();
-
+        c.setHours(23);
+        c.setMinutes(59)
+        //c = new Date(2023, 1, 18,15,36,0,0);
+        console.log(c);
         // aktuelle Woche seit Jahresanfang 2023
         c.setFullYear(c.getFullYear() - year.getFullYear() + 1970);
-        week = c.getTime() / 604800000;
+        week = ((c.getTime()-86400000+3600000) / 604800000);
         week = Math.floor(week);
-
+        console.log(week);
         // Kalenderwoche vom Jahr 2023 in der wir angefangen haben mit dem plan
         anfang = 5;
 
